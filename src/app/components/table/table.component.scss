@@ -1,0 +1,16 @@
+span {
+    padding: 10px;
+    margin: 20px;
+    font-size: 1.1rem;
+}
+
+table {
+    width: 100%;
+    margin: auto;
+    
+    td,th {
+        border-bottom: 1px solid rgba(100, 100, 100, 0.425);
+        text-align: left;
+        padding: 10px;
+    }
+}
