@@ -10,10 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ComercialdesempenioService {
 
-	urlBase: string = 'http://localhost:3000/api/consultant';
-
-	
-
+	urlBase: string = 'https://pruebajosepiedra.up.railway.app/api/consultant';
 
 
 	constructor(
@@ -24,7 +21,7 @@ export class ComercialdesempenioService {
 
 	private httpOptions = {
 		headers : new HttpHeaders({
-		'Content-Type':  'application/json'
+			'Content-Type':  'application/json'
 		})
 	}
 

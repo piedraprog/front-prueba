@@ -51,8 +51,7 @@ export class ComercialPerformanceComponent implements OnInit {
 	
 
 	generateInform(){
-		
-		// if(!this.getValid()) return;
+		if(!this.getValid()) return;
 		this.consultantComp = true;
 		this.chartComp = false;
 		this.chartPizzaComp = false;
@@ -64,13 +63,12 @@ export class ComercialPerformanceComponent implements OnInit {
 				setTimeout(() => {
 					this.loadingInform = false
 				}, 1500);
-				// console.log(result)
 			})
 	}
 
 	genChart() {
 
-		// if(!this.getValid()) return;
+		if(!this.getValid()) return;
 		this.consultantComp = false;
 		this.chartComp = true;
 		this.chartPizzaComp = false;

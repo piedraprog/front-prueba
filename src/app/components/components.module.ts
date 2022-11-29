@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SelectorComponent } from './selector/selector.component';
 import { TableComponent } from './table/table.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
@@ -14,7 +13,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [
-    SelectorComponent,
     TableComponent,
     NavbarComponent,
     PizzaChartComponent,
@@ -31,7 +29,6 @@ import { NgxEchartsModule } from 'ngx-echarts';
     }),
   ],
   exports:[
-    SelectorComponent,
     TableComponent,
     NavbarComponent,
     PizzaChartComponent,
