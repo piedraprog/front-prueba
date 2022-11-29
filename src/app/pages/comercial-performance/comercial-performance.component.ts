@@ -1,26 +1,110 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { Console } from 'console';
+import { ComercialdesempenioService } from 'src/app/services/comercialdesempenio.service';
+
 
 
 @Component({
-  selector: 'app-comercial-performance',
-  templateUrl: './comercial-performance.component.html',
-  styleUrls: ['./comercial-performance.component.scss']
+	selector: 'app-comercial-performance',
+	templateUrl: './comercial-performance.component.html',
+	styleUrls: ['./comercial-performance.component.scss']
 })
 export class ComercialPerformanceComponent implements OnInit {
-  formControl = new FormControl(new Date());
-  ngModelDate = new Date();
-  
-  data : any[] = [
-    {number:1},
-    {number:1},
-    {number:1},
-    {number:1},
-  ]
+	
+	filter : FormGroup;
+	dataMultiSelect : any;
+	loadingInform: boolean = false;
+	loadingChart: boolean = false;
+	loadingPizzaChart: boolean = false;
 
-  constructor() { }
+	consultantData: [];
+	consultantComp: boolean = false;
 
-  ngOnInit(): void {
-  }
+	chartData: string[];
+	chartComp: boolean = false;
 
+
+	chartPizzaData: string[];
+	chartPizzaComp: boolean = false;
+
+
+	constructor(
+		private _comercialService: ComercialdesempenioService,
+		private _formBuilder: FormBuilder,
+	) { }
+
+	ngOnInit(): void {
+		this._comercialService.getConsultant()
+			.subscribe(res=>{
+				this.dataMultiSelect = res.result
+			})
+		
+			
+		this.filter = this._formBuilder.group({
+			from: [''],
+			to: [''],
+			consultant: []
+		});
+	}
+
+	
+
+	generateInform(){
+		
+		// if(!this.getValid()) return;
+		this.consultantComp = true;
+		this.chartComp = false;
+		this.chartPizzaComp = false;
+
+		this._comercialService.generateInform(this.filter.value)
+			.subscribe( result =>{
+				this.loadingInform = true;
+				this.consultantData = result.result;
+				setTimeout(() => {
+					this.loadingInform = false
+				}, 1500);
+				// console.log(result)
+			})
+	}
+
+	genChart() {
+
+		// if(!this.getValid()) return;
+		this.consultantComp = false;
+		this.chartComp = true;
+		this.chartPizzaComp = false;
+
+		this.chartData = [
+			"data"
+		];
+		
+	}
+
+	genPizzaChart() {
+
+		if(!this.getValid()) return;
+		this.consultantComp = false;
+		this.chartComp = false;
+		this.chartPizzaComp = true;
+
+		this.chartPizzaData = [
+			"data"
+		];
+	}
+
+	getValid() {
+		let datesFrom = this.filter.get('from').value
+		let datesTo = this.filter.get('to').value
+		let consultants = this.filter.get('consultant').value
+
+		if(datesFrom === '' || datesTo === '' || consultants === undefined) {
+			this.filter.get('from')?.setErrors({'required': true})
+			this.filter.get('to')?.setErrors({'required': true})
+			this.filter.get('consultant')?.setErrors({'required': true})
+			return false;
+		}
+
+		return true;
+	}
 }

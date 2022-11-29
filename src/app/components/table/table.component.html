@@ -1,31 +1,32 @@
-<span><strong>NOMBRE</strong></span>
-<table>
-    <tr>
-        <th>Periodo</th>
-        <th>Ganancia Neta</th>
-        <th>Costo Fijo</th>
-        <th>Comisión</th>
-        <th>Beneficio</th>
-    </tr>
-    <tr>
-        <td>janerio de 2007</td>
-        <td>R$ 1.500,00</td>
-        <td>R$ 1.500,00</td>
-        <td>R$ 1.500,00</td>
-        <td>R$ 1.500,00</td>
-    </tr>
-    <tr>
-        <td>janerio de 2007</td>
-        <td>R$ 1.500,00</td>
-        <td>R$ 1.500,00</td>
-        <td>R$ 1.500,00</td>
-        <td>R$ 1.500,00</td>
-    </tr>
-    <tr>
-        <td>SALDO</td>
-        <td>R$ 3.000,00</td>
-        <td>R$ 3.000,00</td>
-        <td>R$ 3.000,00</td>
-        <td>R$ 3.000,00</td>
-    </tr>
-</table>
+<div class="" *ngIf="data">
+
+    <nb-card *ngFor="let consultant of data">
+        <span><strong>{{ consultant.no_usuario }}</strong></span>
+    
+        <table>
+            <tr>
+                <th>Periodo</th>
+                <th>Ganancia Neta</th>
+                <th>Costo Fijo</th>
+                <th>Comisión</th>
+                <th>Beneficio</th>
+            </tr>
+            <tr>
+                <td>{{consultant.data_emissao}}</td>
+                <td>R$ {{consultant.receita_liquida }}</td>
+                <td>R$ {{consultant.custo_fixo}}</td>
+                <td>R$ {{consultant.comissao}}</td>
+                <td>R$ {{consultant.lucro}}</td>
+            </tr>
+            
+        </table>
+    </nb-card>
+</div>
+
+<div *ngIf="dataReady">
+    <nb-card>
+        <span>
+            <h4>no data</h4>
+        </span>
+    </nb-card>
+</div>

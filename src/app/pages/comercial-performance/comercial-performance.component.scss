@@ -1,4 +1,37 @@
 nb-card {
     border-radius: .5rem;
     padding: 1em;
+
+    label {
+        padding-right: 10px;
+        font-size: large;
+    }
+
+    span {
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .consult {
+        height: 3rem;
+
+        nb-select {
+            width: 200%;
+            height: 2rem;
+           
+        }
+
+        
+    }
+
+    .buttons {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+
+    .error {
+        color: red;
+    }
 }

@@ -9,7 +9,7 @@ import { ChartBarsComponent } from './charts/chart-bars/chart-bars.component';
 import { NebularmodModule } from '../nebularmod.module';
 import { SidebarnavComponent } from './sidebarnav/sidebarnav.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -25,7 +25,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     NebularmodModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   exports:[
     SelectorComponent,

@@ -5,19 +5,19 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 
 const routes: Routes = [
   {
-    path:'home',
-    pathMatch:'full',
-    component: HomepageComponent
-  },
-  {
     path:'comercial',
     pathMatch:'full',
     component: ComercialPerformanceComponent
   },
   {
+    path:'home',
+    pathMatch:'full',
+    component: HomepageComponent
+  },
+  {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: 'comercial'
   }
 ];
 

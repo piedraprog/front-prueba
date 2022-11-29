@@ -6,34 +6,74 @@
         <nb-tabset fullWidth>
             <nb-tab tabTitle="Consultor" tabIcon="person-outline">
                 <br>
-                <div class="period">
-                    <span><strong>Periodo: </strong></span>
-                    <input nbInput placeholder="Pick Date" [nbDatepicker]="from" [formControl]="formControl">
-                    <nb-datepicker #from></nb-datepicker>
-                    <span>  a  </span>
-                    <input nbInput placeholder="Form Picker" [nbDatepicker]="to" [(ngModel)]="ngModelDate">
-                    <nb-datepicker #to></nb-datepicker>
-                </div>
-                <br>
-                <div class="consult">
-                    <label for="consultores"><strong>Consultores:</strong></label>
-                    <nb-select multiple placeholder="Multiple Select">
-                        <nb-option value="1">Aline Chastel Lima</nb-option>
-                        <nb-option value="2">Aline Chastel Lima</nb-option>
-                        <nb-option value="3">Aline Chastel Lima</nb-option>
-                        <nb-option value="4">Aline Chastel Lima</nb-option>
-                        
-                    </nb-select>
-                </div>
+                <form [formGroup]="filter">
+                    <div class="period">
+                        <label><strong>Periodo: </strong></label>
+                        <input nbInput placeholder="Pick Date" [nbDatepicker]="from"  formControlName="from">
+                        <nb-datepicker #from></nb-datepicker>
+                        <span>  a  </span>
+                        <input nbInput placeholder="Form Picker" [nbDatepicker]="to"  formControlName="to">
+                        <nb-datepicker #to></nb-datepicker>
+                    </div>
+                    <br>
+                    <div class="consult">
+                        <label for="consultores"><strong>Consultores:</strong></label>
+                        <nb-select 
+                            multiple placeholder="Multiple Select" 
+                            formControlName="consultant"
+                            
+                        >
+                            <nb-option 
+                                *ngFor="let consultor of dataMultiSelect" 
+                                [value]="consultor.co_usuario"
+                            >
+                                {{consultor.no_usuario}}
+                            </nb-option>
+                        </nb-select>
+                    </div>
+                    
+                    <!-- <div *ngIf="filter.get('to').hasError('required')" class="error"> -->
+                    <div *ngIf="filter.get('from').hasError('required') || filter.get('to').hasError('required')" class="error">
+                        <strong>Error</strong> el campo Periodo no puede estar vacio 
+                    </div>
+                    <div *ngIf="filter.get('consultant').hasError('required')" class="error">
+                        <strong>Error</strong> el campo Consultores no puede estar vacio 
+                    </div>
 
-                <div class="butons">
-                    <button nbButton outline status="primary" size="large"><nb-icon icon="file-text-outline"></nb-icon>Informe</button>
-                    <button nbButton outline status="warning" size="large"><nb-icon icon="bar-chart-outline"></nb-icon>Gráfico</button>
-                    <button nbButton outline status="warning" size="large"><nb-icon icon="pie-chart-outline"></nb-icon>Gráfico Pizza</button>
-                </div>
+                    <div class="buttons">
+                        <button 
+                            nbButton 
+                            outline 
+                            status="primary" 
+                            size="large" 
+                            (click)="generateInform()"
+                            [nbSpinner]="loadingInform" 
+                            nbSpinnerStatus="info"
+                        ><nb-icon icon="file-text-outline"></nb-icon>Informe</button>
+
+                        <button 
+                            nbButton 
+                            outline 
+                            status="warning" 
+                            size="large" (click)="genChart()"
+                            [nbSpinner]="loadingChart" 
+                            nbSpinnerStatus="info"
+                        ><nb-icon icon="bar-chart-outline"></nb-icon>Gráfico</button>
+
+                        <button 
+                            nbButton 
+                            outline 
+                            status="warning" 
+                            size="large" 
+                            (click)="genPizzaChart()"
+                            [nbSpinner]="loadingPizzaChart" 
+                            nbSpinnerStatus="info"
+                        ><nb-icon icon="pie-chart-outline"></nb-icon>Gráfico Pizza</button>
+                    </div>
+                </form>
             </nb-tab>
             <nb-tab tabTitle="Cliente" tabIcon="person-outline">
-                <br>
+                <!-- <br>
                 <div class="period">
                     <span><strong>Periodo: </strong></span>
                     <input nbInput placeholder="Pick Date" [nbDatepicker]="from" [formControl]="formControl">
@@ -58,18 +98,23 @@
                     <button nbButton outline status="primary" size="large"><nb-icon icon="file-text-outline"></nb-icon>Informe</button>
                     <button nbButton outline status="warning" size="large"><nb-icon icon="bar-chart-outline"></nb-icon>Gráfico</button>
                     <button nbButton outline status="warning" size="large"><nb-icon icon="pie-chart-outline"></nb-icon>Gráfico Pizza</button>
-                </div>
+                </div> -->
             </nb-tab>
         </nb-tabset>
     </nb-card-body>
 </nb-card>
 
 <!-- TABLE FOR CONSULTORES -->
-<nb-card *ngFor="let row of data">
-    <app-table></app-table>
+<div class="table" *ngIf="consultantComp">
+    <app-table
+        [data]="consultantData"
+    ></app-table>
+</div>
+
+<nb-card class="chart" *ngIf="chartComp">
+    <app-chart-bars></app-chart-bars>
 </nb-card>
 
-<!-- TABLE FOR CLIENTS -->
-<!-- <nb-card>
-    <app-table></app-table>
-</nb-card> -->
+<nb-card class="pizzaChart" *ngIf="chartPizzaComp" >
+    <app-pizza-chart></app-pizza-chart>
+</nb-card>

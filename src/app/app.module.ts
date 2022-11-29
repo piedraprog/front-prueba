@@ -13,6 +13,8 @@ import { PagesModule } from './pages/pages.module';
 import { ComponentsModule } from './components/components.module';
 import { NebularmodModule } from './nebularmod.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -26,10 +28,12 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbDatepickerModule.forRoot(),
+    
     NbEvaIconsModule,
     NebularmodModule,
     PagesModule,
     ComponentsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

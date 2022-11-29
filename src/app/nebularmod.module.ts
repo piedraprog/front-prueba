@@ -9,6 +9,7 @@ import {
   NbMenuModule, 
   NbSelectModule, 
   NbSidebarModule, 
+  NbSpinnerModule, 
   NbTabsetModule 
 } from '@nebular/theme';
 import { NbIconModule } from '@nebular/theme';
@@ -30,6 +31,7 @@ import { NbIconModule } from '@nebular/theme';
     NbInputModule,
     NbSelectModule,
     NbButtonModule,
+    NbSpinnerModule,
   ]
 })
 export class NebularmodModule { }
